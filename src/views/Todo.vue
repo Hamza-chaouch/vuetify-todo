@@ -2,17 +2,13 @@
   <div class="home ">
     <v-text-field v-model="taskTitle" @click:append="addTask()" @keyup.enter="addTask()" class="pa-3" outlined
       hide-details label="Add task" append-icon="mdi-plus" clearable></v-text-field>
-
-
-    
-
     <v-list class="pt-0">
-      <div v-if="tasks.length === 0" color="primary lighten-1" class="d-flex justify-center mb-6 flex-column mt-16">
+      <div v-if="$store.state.tasks.length === 0" color="primary lighten-1" class="d-flex justify-center mb-6 flex-column mt-16">
         <v-icon color="primary lighten-1" x-large>
           mdi-check-all</v-icon>
         <H4 class="d-flex justify-center text--disabled"> No unchecked Tasks</H4>
       </div>
-      <div v-for="task in tasks" :key="task.id">
+      <div v-for="task in $store.state.tasks" :key="task.id">
 
         <v-list-item @click="doneTask(task.id)" :class="{ 'blue lighten-5': task.done }">
 
@@ -105,23 +101,6 @@ export default {
           title: 'Deadline',
           icon : 'mdi-clock-outline'
         },
-      ],
-      tasks: [
-        {
-          id: 1,
-          title: "wake up",
-          done: false
-        },
-        {
-          id: 2,
-          title: "eating",
-          done: false
-        },
-        {
-          id: 3,
-          title: "sleep",
-          done: false
-        },
       ]
     }
   },
@@ -150,7 +129,7 @@ export default {
     },
     onUpdate(newtask) {
     console.log(newtask);
-this.dialogState = false
+    this.dialogState = false
 
     },
     updateTask(id){
@@ -167,14 +146,15 @@ this.dialogState = false
     },
 
     doneTask(id) {
-      let task = this.tasks.filter(item => {
+      
+      let task = this.$store.state.tasks.filter(item => {
         return item.id === id
       })[0]
       task.done = !task.done
     },
     suprimeTask(id) {
 
-      this.tasks = this.tasks.filter(task => task.id !== id)
+     this.$store.state.tasks = this.$store.state.tasks.filter(task => task.id !== id)
 
 
     },
@@ -186,7 +166,7 @@ this.dialogState = false
           done: false
         }
 
-        this.tasks.push(newTask)
+        this.$store.state.tasks.push(newTask)
         this.taskTitle = ''
       }
 
