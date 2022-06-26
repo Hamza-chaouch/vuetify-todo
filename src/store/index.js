@@ -8,24 +8,40 @@ export default new Vuex.Store({
     tasks: [
       {
         id: 1,
-        title: "store up",
+        title: "wake up",
         done: false
       },
       {
         id: 2,
-        title: "store eating",
+        title: " eating",
         done: false
       },
       {
         id: 3,
-        title: " store sleep",
+        title: "  sleep",
         done: false
       },
-    ]
+    ],
+    selectedTask : {
+      id: 1,
+      title: "selected task up",
+      done: false
+    },
+    oldTask : null ,
+    updateDialog : false
   },
   getters: {
   },
   mutations: {
+    selectTask (state, payload) {
+      state.selectedTask = payload
+    },
+    updateTaskTitle (state , payload) {
+      let task = state.tasks.filter(item => {
+        return item.id === payload.id
+      })[0]
+      task.title = payload.title
+    }
   },
   actions: {
   },

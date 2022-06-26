@@ -3,7 +3,8 @@
     <v-text-field v-model="taskTitle" @click:append="addTask()" @keyup.enter="addTask()" class="pa-3" outlined
       hide-details label="Add task" append-icon="mdi-plus" clearable></v-text-field>
     <v-list class="pt-0">
-      <div v-if="$store.state.tasks.length === 0" color="primary lighten-1" class="d-flex justify-center mb-6 flex-column mt-16">
+      <div v-if="$store.state.tasks.length === 0" color="primary lighten-1"
+        class="d-flex justify-center mb-6 flex-column mt-16">
         <v-icon color="primary lighten-1" x-large>
           mdi-check-all</v-icon>
         <H4 class="d-flex justify-center text--disabled"> No unchecked Tasks</H4>
@@ -22,14 +23,9 @@
               </v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
-              <!-- <Dialog 
-              @closeModal="dialogState = false" 
-              @updateTaskTitle="onUpdate(task)"
-              :dialog="dialogState" 
-              :task="task"
-              ></Dialog>     -->
 
-              <!-- <v-menu bottom left>
+
+              <v-menu bottom left>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn dark icon v-bind="attrs" v-on="on">
                     <v-icon color="primary">mdi-dots-vertical</v-icon>
@@ -40,23 +36,16 @@
                   <v-list-item v-for="(item, i) in items" :key="i">
                     <v-list-item-title>
                       {{ item.title }}
-
-
                     </v-list-item-title>
-                    <v-btn 
-                    @click="crudTask(task.id,item)"
-                     icon
-                     class="ml-5"
-
-                    >
-                      <v-icon color="primary lighten-1">{{item.icon}}</v-icon>
+                    <v-btn @click="crudTask(task, item)" icon class="ml-5">
+                      <v-icon color="primary lighten-1">{{ item.icon }}</v-icon>
                     </v-btn>
                   </v-list-item>
                 </v-list>
-              </v-menu> -->
-              <v-btn @click="suprimeTask(task.id)" icon>
+              </v-menu>
+              <!-- <v-btn @click="suprimeTask(task.id)" icon>
                 <v-icon color="primary lighten-1">mdi-delete</v-icon>
-              </v-btn>
+              </v-btn> -->
             </v-list-item-action>
           </template>
 
@@ -65,6 +54,7 @@
         <v-divider></v-divider>
       </div>
     </v-list>
+    <Dialog></Dialog>
   </div>
 </template>
 
@@ -78,75 +68,76 @@ export default {
   },
   data: () => {
     return {
-      dialogState: false , 
+      dialogState: false,
       taskTitle: '',
       items: [
         {
-          action_id : 1,
+          action_id: 1,
           title: 'Update',
-          icon : 'mdi-update'
+          icon: 'mdi-update'
         },
         {
-          action_id : 2,
+          action_id: 2,
           title: 'Delete',
-          icon : 'mdi-delete'
+          icon: 'mdi-delete'
         },
         {
-          action_id : 3,
+          action_id: 3,
           title: 'Sort',
-          icon : 'mdi-sort'
+          icon: 'mdi-sort'
         },
         {
-          action_id : 4,
+          action_id: 4,
           title: 'Deadline',
-          icon : 'mdi-clock-outline'
+          icon: 'mdi-clock-outline'
         },
       ]
     }
   },
   methods: {
-    crudTask (id , action) {
+    crudTask(task, action) {
+      // start a mutation
+     
+    
+     
       switch (action.action_id) {
         case 1:
-          this.updateTask(id)
+          this.updateTask(task)
           break;
         case 2:
-          this.suprimeTask(id)
+          this.suprimeTask(task.id)
           break;
         case 3:
-          this.sortTask(id)
+          this.sortTask(task)
           break;
         case 4:
-          this.dateLimiteTask(id)
+          this.dateLimiteTask(task)
           break;
-          
-      
+
+
         default:
           alert("sth wrong!!")
           break;
       }
-    
-    },
-    onUpdate(newtask) {
-    console.log(newtask);
-    this.dialogState = false
 
     },
-    updateTask(id){
-      
-      this.dialogState = true
+    
+    updateTask(task) {
+       this.$store.commit('selectTask', task)
+       this.$store.state.updateDialog = true
     },
-    sortTask(id){
+    sortTask(id) {
       console.log('sortTask');
 
     },
-    dateLimiteTask(id){
+    dateLimiteTask(id) {
       console.log('dateLimiteTask');
 
     },
 
     doneTask(id) {
-      
+      console.log();
+
       let task = this.$store.state.tasks.filter(item => {
         return item.id === id
       })[0]
@@ -154,7 +145,7 @@ export default {
     },
     suprimeTask(id) {
 
-     this.$store.state.tasks = this.$store.state.tasks.filter(task => task.id !== id)
+      this.$store.state.tasks = this.$store.state.tasks.filter(task => task.id !== id)
 
 
     },
