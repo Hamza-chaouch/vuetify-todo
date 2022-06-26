@@ -9,7 +9,14 @@
             Vuetify TODO
           </v-list-item-title>
           <v-list-item-subtitle>
-            Best To do ever
+            <v-switch
+        v-model="$vuetify.theme.dark"
+        inset
+        class="ml-2"
+        label="Theme"
+        persistent-hint
+
+      ></v-switch>
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -51,9 +58,9 @@
         <v-icon>mdi-heart</v-icon>
       </v-btn>
 
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
+
+      
+     
     </v-app-bar>
 
     <v-main>
