@@ -26,14 +26,14 @@
               </v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
-              <Dialog 
+              <!-- <Dialog 
               @closeModal="dialogState = false" 
               @updateTaskTitle="onUpdate(task)"
               :dialog="dialogState" 
               :task="task"
-              ></Dialog>    
+              ></Dialog>     -->
 
-              <v-menu bottom left>
+              <!-- <v-menu bottom left>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn dark icon v-bind="attrs" v-on="on">
                     <v-icon color="primary">mdi-dots-vertical</v-icon>
@@ -57,10 +57,10 @@
                     </v-btn>
                   </v-list-item>
                 </v-list>
-              </v-menu>
-              <!-- <v-btn @click="suprimeTask(task.id)" icon>
+              </v-menu> -->
+              <v-btn @click="suprimeTask(task.id)" icon>
                 <v-icon color="primary lighten-1">mdi-delete</v-icon>
-              </v-btn> -->
+              </v-btn>
             </v-list-item-action>
           </template>
 
