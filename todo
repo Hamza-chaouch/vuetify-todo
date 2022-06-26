@@ -1,0 +1,14 @@
+//add no tasks if there isn'tasks
+add date on the header and the input
+notification at the bottom whene we add or edit or delete
+replace the delete button with a menu where we can edit title choose a date delete sort drag handlers reorder
+image avatar in the menu name username
+search filed
+ add vue x store 
+ index db local base
+ deploy to netlify
+
+
+
+
+ problem in update
